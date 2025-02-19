@@ -6,10 +6,13 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
+        plugin = {"html:target/html-reports/cucumber-report.html",
+                   "json:target/json-reports/json-report.json" },
         features = "src/test/resources/features",
         glue = "io/loop/step_definitions",
-        dryRun = true,
-        tags = "@test1"
+        dryRun = false,
+        tags = "@google_search",
+        monochrome = true
 )
 
 public class CukesRunner {
