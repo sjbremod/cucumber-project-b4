@@ -1,9 +1,8 @@
 package io.loop.utilities;
 
+import io.cucumber.java.Scenario;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -12,6 +11,25 @@ import java.time.Duration;
 import java.util.Set;
 
 public class BrowserUtils {
+
+    public static Scenario myScenario;
+
+    /**
+     * takes screenshot
+     * @author sjb
+     */
+    public static void takeScreenShot() {
+        try{
+            myScenario.log("current url is: " + Driver.getDriver().getCurrentUrl());
+            final byte[] screenshot = ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
+            myScenario.attach(screenshot,"image/png",myScenario.getName());
+        }catch(WebDriverException wbd){
+            wbd.getMessage();
+           }catch(ClassCastException cce){
+            cce.getMessage();
+
+        }
+    }
 
     /**
      * validate if driver switched to expected url or title
