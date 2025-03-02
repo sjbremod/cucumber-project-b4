@@ -30,6 +30,7 @@ private static final Logger LOG = LogManager.getLogger();
             scenario.attach(screenshot,"image/png",scenario.getName());
         }
         LOG.info("..............End Automation.............. LOOPCAMP");
+
      Driver.closeDriver();
     }
    //  @AfterStep
