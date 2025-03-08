@@ -120,6 +120,18 @@ public class BrowserUtils {
         WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(timeToWaitSec));
         return wait.until(ExpectedConditions.visibilityOf(element));
     }
+    public static void justWait (int seconds){
+        try{
+            Thread.sleep(seconds);
+        } catch (InterruptedException e){
+            e.printStackTrace();
+        }
+    }
+    public static void clickWithJS(WebElement element){
+        ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
+        ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].click();", element);
+    }
+
 }
 
 
