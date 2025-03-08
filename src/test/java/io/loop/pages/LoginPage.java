@@ -1,5 +1,6 @@
 package io.loop.pages;
 
+import com.sun.jdi.connect.IllegalConnectorArgumentsException;
 import io.loop.utilities.BrowserUtils;
 import io.loop.utilities.ConfigurationReader;
 import io.loop.utilities.DocuportConstants;
@@ -25,8 +26,32 @@ public class LoginPage {
     @FindBy(xpath = "//button[@type='submit']")
     public WebElement loginButton;
 
-    @FindBy(xpath = "//button[@type='submit']")
+    @FindBy(xpath = "//span[.=' Continue ']")
     public WebElement continueButton;
+
+    public void insertField(String field, String input){
+        switch (field.toLowerCase().trim()){
+            case "username":
+                BrowserUtils.waitForVisibility(usernameInput, 10).sendKeys(input);
+                break;
+            case "password":
+                BrowserUtils.waitForVisibility(passwordInput, 10).sendKeys(input);
+                break;
+            default: throw new IllegalArgumentException("No such a field: " + field );
+        }
+    }
+
+    public void clickButton(String button){
+        switch (button.toLowerCase().trim()){
+            case "login":
+                BrowserUtils.waitForClickable(loginButton, 10).click();
+                break;
+            case "continue":
+                BrowserUtils.waitForVisibility(continueButton, 10).click();
+                break;
+            default: throw new IllegalArgumentException("Not such a button: " + button);
+        }
+    }
 
     /**
      *logins to docuport application
