@@ -2,14 +2,18 @@ package io.loop.pages;
 
 import io.loop.utilities.BrowserUtils;
 import io.loop.utilities.Driver;
+import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class LeftNavigatePage {
-public LeftNavigatePage() {
-    PageFactory.initElements(Driver.getDriver(), this);
-}
+
+
+    public LeftNavigatePage(){
+        PageFactory.initElements(Driver.getDriver(), this);
+    }
 
     @FindBy(xpath = "//span[contains(text(),'Upload')]")
     public WebElement uploadButton;
@@ -30,23 +34,34 @@ public LeftNavigatePage() {
     public WebElement termsAndConditionsButton;
 
     public void clickButton(String button){
-        switch(button.toLowerCase().trim()){
+        switch (button.toLowerCase().trim()){
             case "received doc":
-                BrowserUtils.waitForVisibility(receivedDocsButton,10).click();
+                BrowserUtils.waitForClickable(receivedDocsButton, 10).click();
                 break;
             case "home":
-                BrowserUtils.waitForVisibility(homeButton,10).click();
+                try {
+                    BrowserUtils.waitForClickable(homeButton, 10).click();
+                } catch (StaleElementReferenceException stl){
+                    WebElement element = Driver.getDriver().findElement(By.xpath("//span[contains(text(),'Home')]"));
+                }
                 break;
             case "upload":
-                BrowserUtils.waitForVisibility(uploadButton,10).click();
+                BrowserUtils.waitForClickable(uploadButton, 10).click();
                 break;
+
             case "invitations":
-                BrowserUtils.waitForVisibility(invitationsButton,10).click();
+                BrowserUtils.waitForClickable(invitationsButton, 10).click();
                 break;
+
             case "terms and conditions":
-                BrowserUtils.waitForVisibility(termsAndConditionsButton,10).click();
+                BrowserUtils.waitForClickable(termsAndConditionsButton, 10).click();
                 break;
-            default: throw new IllegalArgumentException("no such button: " + button);
+
+            case "my uploads":
+                BrowserUtils.waitForClickable(myUploads, 10).click();
+                break;
+
+            default: throw new IllegalArgumentException("Not such a button: " + button);
         }
     }
 }

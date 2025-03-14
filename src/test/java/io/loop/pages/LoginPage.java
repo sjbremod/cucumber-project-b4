@@ -29,6 +29,17 @@ public class LoginPage {
     @FindBy(xpath = "//span[.=' Continue ']")
     public WebElement continueButton;
 
+    @FindBy(xpath = "//*[.=' Login ']")
+    public WebElement loginText;
+
+    @FindBy(xpath = "//img[@src='/img/logo.d7557277.svg']")
+    public WebElement docuportText;
+
+    @FindBy(xpath = "//h3[contains(text(),'Choose account')]")
+    public WebElement continueText;
+
+    //img
+
     public void insertField(String field, String input){
         switch (field.toLowerCase().trim()){
             case "username":
@@ -96,6 +107,7 @@ public class LoginPage {
         usernameInput.sendKeys(username);
         passwordInput.clear();
         passwordInput.sendKeys(password);
+        loginButton.click();
         if (BrowserUtils.waitForVisibility(continueButton, 10).isDisplayed()) {
             continueButton.click();
         }
