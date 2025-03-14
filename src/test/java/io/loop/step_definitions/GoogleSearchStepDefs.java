@@ -45,7 +45,7 @@ public class GoogleSearchStepDefs {
             googleSearchpage.captcha.click();
         }
         Driver.getDriver().switchTo().defaultContent();
-       // Driver.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+       // Driver.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(Integer.valueOf(ConfigurationReader.getProperties("timeouts"))));
         Thread.sleep(10000);
     }
     @Then("user should see Loop Academy - Google search in the google title")
@@ -65,12 +65,12 @@ public class GoogleSearchStepDefs {
             googleSearchpage.captcha.click();
         }
         Driver.getDriver().switchTo().defaultContent();
-        // Driver.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        // Driver.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(Integer.valueOf(ConfigurationReader.getProperties("timeouts"))));
 //        Thread.sleep(10000);
     }
     @Then("user should see {string} in the google title")
     public void user_should_see_in_the_google_title(String expectedTitle) {
-        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(Integer.valueOf(ConfigurationReader.getProperties("timeouts"))));
         wait.until(ExpectedConditions.titleIs(expectedTitle));
         String actualTitle = Driver.getDriver().getTitle();
         assertEquals("Expected result does not match actual",expectedTitle,actualTitle);
@@ -89,7 +89,7 @@ public class GoogleSearchStepDefs {
             googleSearchpage.searchBox.clear();
             googleSearchpage.searchBox.sendKeys(p + Keys.ENTER);
             googleSearchpage.handleCaptcha(Driver.getDriver(), googleSearchpage.captcha);
-            WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
+            WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(Integer.valueOf(ConfigurationReader.getProperties("timeouts"))));
             wait.until(ExpectedConditions.titleContains(p + " - Google Search"));
             assertEquals("Expected result doesn't match actual result", p + " - Google Search", Driver.getDriver().getTitle());
         });

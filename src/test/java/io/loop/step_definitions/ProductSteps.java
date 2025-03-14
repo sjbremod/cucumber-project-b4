@@ -20,7 +20,7 @@ public class ProductSteps {
     public static String getProductPrice(String product) {
 
 
-        Driver.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        Driver.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(Integer.valueOf(ConfigurationReader.getProperties("timeouts"))));
         String actualPrice = Driver.getDriver().findElement(By.xpath("//a[normalize-space(.)='" + product + "']/../../h5")).getText();
 
         return actualPrice.substring(1);
@@ -33,7 +33,7 @@ public class ProductSteps {
     @Given("User is on the HomePage")
     public void user_is_on_the_home_page() {
         Driver.getDriver().get(ConfigurationReader.getProperties("product.url"));
-        Driver.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        Driver.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(Integer.valueOf(ConfigurationReader.getProperties("timeouts"))));
         LOG.info("User is on Homepage");
 
 
